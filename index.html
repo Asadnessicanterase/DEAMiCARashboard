@@ -1,12 +1,129 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MiCAR EMT License Tracker - Electronic Money Token Issuers</title>
-<link href="./output.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.0/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+body {
+font-family: 'Inter', sans-serif;
+background: linear-gradient(90deg, #58c1ba, #004aad);
+min-height: 100vh;
+}
+
+.main-bg {
+background: linear-gradient(90deg, #58c1ba, #004aad);
+}
+
+.header-sticky {
+position: sticky;
+top: 0;
+z-index: 50;
+backdrop-filter: blur(10px);
+background: linear-gradient(90deg, rgba(88, 193, 186, 0.95), rgba(0, 74, 173, 0.95));
+}
+
+.card-hover {
+transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.progress-bar {
+transition: width 0.8s ease-in-out;
+}
+
+.fade-in {
+animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.kpi-card {
+background: linear-gradient(135deg, var(--start-color), var(--end-color));
+}
+
+/* Complementary colors to the teal-blue gradient */
+.kpi-teal { --start-color: #14b8a6; --end-color: #0f766e; }
+.kpi-blue { --start-color: #0ea5e9; --end-color: #0369a1; }
+.kpi-orange { --start-color: #f97316; --end-color: #ea580c; }
+.kpi-coral { --start-color: #f43f5e; --end-color: #e11d48; }
+.kpi-purple { --start-color: #8b5cf6; --end-color: #7c3aed; }
+.kpi-red { --start-color: #dc2626; --end-color: #b91c1c; }
+.kpi-green { --start-color: #10b981; --end-color: #059669; }
+.kpi-yellow { --start-color: #f59e0b; --end-color: #d97706; }
+
+.search-input {
+background: rgba(255, 255, 255, 0.9);
+backdrop-filter: blur(10px);
+}
+
+.content-bg {
+background: rgba(255, 255, 255, 0.05);
+backdrop-filter: blur(10px);
+}
+
+.logo-container {
+max-height: 80px;
+width: auto;
+margin-right: 20px;
+}
+
+.tab-button {
+transition: all 0.3s ease;
+}
+
+.tab-active {
+background: white;
+color: #1e40af;
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.tab-inactive {
+background: rgba(59, 130, 246, 0.3);
+color: white;
+}
+
+.tab-inactive:hover {
+background: rgba(59, 130, 246, 0.5);
+}
+
+/* Dynamic currency cards */
+.currency-card {
+transition: all 0.3s ease;
+}
+
+.currency-card:hover {
+transform: scale(1.05);
+}
+</style>
+<style>
+/* hide the "xx.x% of total" under each card */
+#eurPercentage,
+#usdPercentage,
+#gbpPercentage,
+#czkPercentage {
+display: none;
+}
+</style>
+
+<style>
+/* hide the entire "Currency Distribution Analysis" card */
+.card-hover:has(.fa-coins) {
+display: none !important;
+}
+</style>
 </head>
 <body class="main-bg">
 <!-- Sticky Header -->
@@ -261,174 +378,174 @@ const kpiColors = ['kpi-teal', 'kpi-blue', 'kpi-orange', 'kpi-coral', 'kpi-purpl
 
 // Data - will be updated by the automation script
 const data = [
-    {
-        "id": 1,
-        "issuer": "Circle Internet Financial EU SAS",
-        "state": "France",
-        "authority": "ACPR",
-        "tokens": "EURC, USDC",
-        "count": 2,
-        "euro": 1,
-        "usd": 1,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 2,
-        "issuer": "Société Générale – Forge",
-        "state": "France",
-        "authority": "ACPR",
-        "tokens": "EURCV",
-        "count": 1,
-        "euro": 1,
-        "usd": 0,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 3,
-        "issuer": "Schuman Financial SAS",
-        "state": "France",
-        "authority": "ACPR",
-        "tokens": "EURØP",
-        "count": 1,
-        "euro": 1,
-        "usd": 0,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 4,
-        "issuer": "Paxos",
-        "state": "Finland",
-        "authority": "FIN-FSA",
-        "tokens": "EUROe, eUSD, USDG",
-        "count": 3,
-        "euro": 1,
-        "usd": 2,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 5,
-        "issuer": "Eurodollar ApS",
-        "state": "Denmark",
-        "authority": "Finanstilsynet",
-        "tokens": "USDE",
-        "count": 1,
-        "euro": 0,
-        "usd": 1,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 6,
-        "issuer": "Banking Circle S.A.",
-        "state": "Luxembourg",
-        "authority": "CSSF",
-        "tokens": "EURI",
-        "count": 1,
-        "euro": 1,
-        "usd": 0,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 7,
-        "issuer": "Quantoz Payments B.V.",
-        "state": "Netherlands",
-        "authority": "Dutch National Bank",
-        "tokens": "EURQ, USDQ, EURD",
-        "count": 3,
-        "euro": 2,
-        "usd": 1,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 8,
-        "issuer": "StablR Ltd",
-        "state": "Malta",
-        "authority": "MFSA",
-        "tokens": "USDR, EURR",
-        "count": 2,
-        "euro": 1,
-        "usd": 1,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 9,
-        "issuer": "Stablemint Ltd",
-        "state": "Malta",
-        "authority": "MFSA",
-        "tokens": "EURsm, USDsm",
-        "count": 2,
-        "euro": 1,
-        "usd": 1,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 10,
-        "issuer": "Ambr Payments UAB",
-        "state": "Lithuania",
-        "authority": "Bank of Lithuania",
-        "tokens": "",
-        "count": 0,
-        "euro": 0,
-        "usd": 0,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 11,
-        "issuer": "UAB Blue EMI LT",
-        "state": "Lithuania",
-        "authority": "Bank of Lithuania",
-        "tokens": "BLUEUR",
-        "count": 1,
-        "euro": 1,
-        "usd": 0,
-        "czk": 0,
-        "gbp": 0
-    },
-    {
-        "id": 12,
-        "issuer": "Stable Europe",
-        "state": "Czech Republic",
-        "authority": "Czech National Bank",
-        "tokens": "CZKI",
-        "count": 1,
-        "euro": 0,
-        "usd": 0,
-        "czk": 1,
-        "gbp": 0
-    },
-    {
-        "id": 13,
-        "issuer": "Fiat Republic Netherlands B.V.",
-        "state": "Netherlands",
-        "authority": "Dutch National Bank",
-        "tokens": "ENEUR, ENGBP",
-        "count": 2,
-        "euro": 1,
-        "usd": 0,
-        "czk": 0,
-        "gbp": 1
-    },
-    {
-        "id": 14,
-        "issuer": "AllUnity GmbH",
-        "state": "Germany",
-        "authority": "BaFin",
-        "tokens": "EURAU",
-        "count": 1,
-        "euro": 1,
-        "usd": 0,
-        "czk": 0,
-        "gbp": 0
-    }
+{
+"id": 1,
+"issuer": "Circle Internet Financial EU SAS",
+"state": "France",
+"authority": "ACPR",
+"tokens": "EURC, USDC",
+"count": 2,
+"euro": 1,
+"usd": 1,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 2,
+"issuer": "Société Générale – Forge",
+"state": "France",
+"authority": "ACPR",
+"tokens": "EURCV",
+"count": 1,
+"euro": 1,
+"usd": 0,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 3,
+"issuer": "Schuman Financial SAS",
+"state": "France",
+"authority": "ACPR",
+"tokens": "EURØP",
+"count": 1,
+"euro": 1,
+"usd": 0,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 4,
+"issuer": "Paxos",
+"state": "Finland",
+"authority": "FIN-FSA",
+"tokens": "EUROe, eUSD, USDG",
+"count": 3,
+"euro": 1,
+"usd": 2,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 5,
+"issuer": "Eurodollar ApS",
+"state": "Denmark",
+"authority": "Finanstilsynet",
+"tokens": "USDE",
+"count": 1,
+"euro": 0,
+"usd": 1,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 6,
+"issuer": "Banking Circle S.A.",
+"state": "Luxembourg",
+"authority": "CSSF",
+"tokens": "EURI",
+"count": 1,
+"euro": 1,
+"usd": 0,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 7,
+"issuer": "Quantoz Payments B.V.",
+"state": "Netherlands",
+"authority": "Dutch National Bank",
+"tokens": "EURQ, USDQ, EURD",
+"count": 3,
+"euro": 2,
+"usd": 1,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 8,
+"issuer": "StablR Ltd",
+"state": "Malta",
+"authority": "MFSA",
+"tokens": "USDR, EURR",
+"count": 2,
+"euro": 1,
+"usd": 1,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 9,
+"issuer": "Stablemint Ltd",
+"state": "Malta",
+"authority": "MFSA",
+"tokens": "EURsm, USDsm",
+"count": 2,
+"euro": 1,
+"usd": 1,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 10,
+"issuer": "Ambr Payments UAB",
+"state": "Lithuania",
+"authority": "Bank of Lithuania",
+"tokens": "",
+"count": 0,
+"euro": 0,
+"usd": 0,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 11,
+"issuer": "UAB Blue EMI LT",
+"state": "Lithuania",
+"authority": "Bank of Lithuania",
+"tokens": "BLUEUR",
+"count": 1,
+"euro": 1,
+"usd": 0,
+"czk": 0,
+"gbp": 0
+},
+{
+"id": 12,
+"issuer": "Stable Europe",
+"state": "Czech Republic",
+"authority": "Czech National Bank",
+"tokens": "CZKI",
+"count": 1,
+"euro": 0,
+"usd": 0,
+"czk": 1,
+"gbp": 0
+},
+{
+"id": 13,
+"issuer": "Fiat Republic Netherlands B.V.",
+"state": "Netherlands",
+"authority": "Dutch National Bank",
+"tokens": "ENEUR, ENGBP",
+"count": 2,
+"euro": 1,
+"usd": 0,
+"czk": 0,
+"gbp": 1
+},
+{
+"id": 14,
+"issuer": "AllUnity GmbH",
+"state": "Germany",
+"authority": "BaFin",
+"tokens": "EURAU",
+"count": 1,
+"euro": 1,
+"usd": 0,
+"czk": 0,
+"gbp": 0
+}
 ];
 
 // Non-compliant entities data
@@ -490,66 +607,91 @@ return currencies;
 }
 
 function generateKPICards() {
-    const container = document.getElementById('kpiContainer');
-    const currencies = calculateCurrencyTotals();
+const container = document.getElementById('kpiContainer');
+const currencies = calculateCurrencyTotals();
 
-    // Base KPI cards
-    const baseKPIs = [
-        {
-            title: 'Total Issuers',
-            value: data.length,
-            subtitle: 'Active EMT Providers',
-            icon: '🏢',
-            color: 'kpi-teal'
-        },
-        {
-            title: 'Total Tokens',
-            value: data.reduce((sum, item) => sum + item.count, 0),
-            subtitle: 'Authorized EMTs',
-            icon: '🪙',
-            color: 'kpi-blue'
-        }
-    ];
+// Base KPI cards
+const baseKPIs = [
+{
+title: 'Total Issuers',
+value: data.length,
+subtitle: 'Active EMT Providers',
+icon: '🏢',
+color: 'kpi-teal'
+},
+{
+title: 'Total Tokens',
+value: data.reduce((sum, item) => sum + item.count, 0),
+subtitle: 'Authorized EMTs',
+icon: '🪙',
+color: 'kpi-blue'
+}
+];
 
-    // Currency KPI cards
-    const currencyKPIs = Object.entries(currencies).map(([currency, count], index) => {
-        const info = currencyInfo[currency] || { symbol: '💶', name: currency, color: 'teal' };
-        return {
-            title: `${currency} Tokens`,
-            value: count,
-            subtitle: `${info.name}-backed`,
-            icon: info.symbol,
-            color: kpiColors[(index + 2) % kpiColors.length]
-        };
-    });
+// Currency KPI cards
+const currencyKPIs = Object.entries(currencies).map(([currency, count], index) => {
+const info = currencyInfo[currency] || { symbol: '💰', name: currency, color: 'teal' };
+return {
+title: `${currency} Tokens`,
+value: count,
+subtitle: `${info.name}-backed`,
+icon: info.symbol,
+color: kpiColors[(index + 2) % kpiColors.length]
+};
+});
 
-    // Non-compliant KPI
-    const nonCompliantKPI = {
-        title: 'Non-Compliant',
-        value: nonCompliantData.length,
-        subtitle: 'Flagged Entities',
-        icon: '⚠️',
-        color: 'kpi-red'
-    };
+// Non-compliant KPI
+const nonCompliantKPI = {
+title: 'Non-Compliant',
+value: nonCompliantData.length,
+subtitle: 'Flagged Entities',
+icon: '⚠️',
+color: 'kpi-red'
+};
 
-    const allKPIs = [...baseKPIs, ...currencyKPIs, nonCompliantKPI];
+const allKPIs = [...baseKPIs, ...currencyKPIs, nonCompliantKPI];
 
-    // Adjust grid columns based on number of KPIs
-    const gridCols = Math.min(allKPIs.length, 6);
-    container.className = `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${gridCols} gap-6 mb-8 fade-in`;
+        // Adjust grid columns based on number of KPIs
+        const gridCols = Math.min(allKPIs.length, 6);
+        container.className = `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${gridCols} gap-6 mb-8 fade-in`;
+        // Use fixed grid classes based on number of KPIs - FIXED VERSION
+        const gridClass = allKPIs.length <= 3 ? 'lg:grid-cols-3' : 
+                         allKPIs.length <= 4 ? 'lg:grid-cols-4' : 
+                         allKPIs.length <= 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-6';
+        container.className = `grid grid-cols-1 md:grid-cols-2 ${gridClass} gap-6 mb-8 fade-in`;
 
-    container.innerHTML = allKPIs.map(kpi => `
-        <div class="kpi-card ${kpi.color} p-6 rounded-2xl shadow-lg text-white card-hover">
-            <div class="flex items-center justify-between">
-                <div class="flex-shrink-0">
-                    <p class="text-xs opacity-90 font-medium whitespace-nowrap">${kpi.title}</p>
-                    <p class="text-3xl font-bold mt-2">${kpi.value}</p>
-                    <p class="text-sm opacity-80 mt-1">${kpi.subtitle}</p>
-                </div>
-                <div class="text-4xl opacity-80">${kpi.icon}</div>
-            </div>
-        </div>
-    `).join('');
+container.innerHTML = allKPIs.map(kpi => `
+           <div class="kpi-card ${kpi.color} p-6 rounded-2xl shadow-lg text-white card-hover">
+               <div class="flex items-center justify-between">
+                   <div>
+                       <p class="text-sm opacity-90 font-medium">${kpi.title}</p>
+                       <p class="text-3xl font-bold mt-2">${kpi.value}</p>
+                       <p class="text-sm opacity-80 mt-1">${kpi.subtitle}</p>
+                   </div>
+                   <div class="text-4xl opacity-80">${kpi.icon}</div>
+               </div>
+           </div>
+       `).join('');
+}
+
+function generateCurrencyDistribution() {
+const container = document.getElementById('currencyDistribution');
+const currencies = calculateCurrencyTotals();
+const totalTokens = Object.values(currencies).reduce((sum, count) => sum + count, 0);
+
+container.innerHTML = Object.entries(currencies).map(([currency, count]) => {
+const info = currencyInfo[currency] || { symbol: '💰', name: currency };
+const percentage = ((count / totalTokens) * 100).toFixed(1);
+
+return `
+               <div class="text-center p-6 bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl currency-card">
+                   <div class="text-4xl mb-3">${info.symbol}</div>
+                   <div class="text-2xl font-bold text-teal-600">${count}</div>
+                   <div class="text-gray-600">${currency} Tokens</div>
+                   <div class="text-sm text-gray-500 mt-2">${percentage}% of total</div>
+               </div>
+           `;
+}).join('');
 }
 
 // Calculate aggregated data
@@ -589,7 +731,7 @@ const container = document.getElementById('countryChart');
 const maxCount = countryData[0][1]; // First item has highest count due to sorting
 
 container.innerHTML = countryData.map(([country, count]) => `
-           <">
+           <div class="flex items-center justify-between">
                <div class="flex items-center space-x-2">
                    <span class="text-xl">${countryFlags[country] || '🏳️'}</span>
                    <span class="text-gray-700 font-medium">${country}</span>
