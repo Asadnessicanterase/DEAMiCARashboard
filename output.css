@@ -693,6 +693,10 @@ video {
   max-width: 80rem;
 }
 
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -773,6 +777,10 @@ video {
 
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .rounded {
