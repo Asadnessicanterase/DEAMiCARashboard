@@ -546,7 +546,7 @@ const allKPIs = [...baseKPIs, ...currencyKPIs, nonCompliantKPI];
 container.innerHTML = allKPIs.map(kpi => `
            <div class="kpi-card ${kpi.color} p-6 rounded-2xl shadow-lg text-white card-hover">
                <div class="flex items-center justify-between">  
-  <div class="flex-shrink-0">
+  
     <p class="text-sm opacity-90 font-medium whitespace-nowrap">${kpi.title}</p>  
     <p class="text-3xl font-bold mt-2">${kpi.value}</p>  
     <p class="text-sm opacity-80 mt-1">${kpi.subtitle}</p>  
