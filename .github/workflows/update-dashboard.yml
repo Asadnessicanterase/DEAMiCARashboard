@@ -26,6 +26,14 @@ jobs:
       with:
         node-version: '18'
 
+    # ✨ NEW STEP: Install our "ingredients" from package.json
+    - name: Install dependencies
+      run: npm install
+
+    # ✨ NEW STEP: Build our final CSS file from input.css
+    - name: Build Tailwind CSS
+      run: npm run build
+
     - name: Update dashboard data
       run: |
         echo "🔄 Starting dashboard update..."
@@ -47,9 +55,10 @@ jobs:
       run: |
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action Bot"
-        git add index.html
+        # ✨ UPDATED STEP: Make sure we save the new CSS file too!
+        git add index.html output.css
         git status
-        git commit -m "🤖 Auto-update dashboard data - $(date '+%Y-%m-%d %H:%M:%S UTC')" || {
+        git commit -m "🤖 Auto-update dashboard data and build CSS - $(date '+%Y-%m-%d %H:%M:%S UTC')" || {
           echo "No changes to commit"
           exit 0
         }
