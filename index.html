@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -650,9 +651,11 @@
 
         const allKPIs = [...baseKPIs, ...currencyKPIs, nonCompliantKPI];
 
-        // Adjust grid columns based on number of KPIs
-        const gridCols = Math.min(allKPIs.length, 6);
-        container.className = `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${gridCols} gap-6 mb-8 fade-in`;
+        // Use fixed grid classes based on number of KPIs - FIXED VERSION
+        const gridClass = allKPIs.length <= 3 ? 'lg:grid-cols-3' : 
+                         allKPIs.length <= 4 ? 'lg:grid-cols-4' : 
+                         allKPIs.length <= 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-6';
+        container.className = `grid grid-cols-1 md:grid-cols-2 ${gridClass} gap-6 mb-8 fade-in`;
 
         container.innerHTML = allKPIs.map(kpi => `
             <div class="kpi-card ${kpi.color} p-6 rounded-2xl shadow-lg text-white card-hover">
@@ -775,15 +778,20 @@
             const standardFields = ['id', 'issuer', 'state', 'authority', 'tokens', 'count'];
             const currencyFields = Object.keys(item).filter(key => !standardFields.includes(key));
 
+            // FIXED VERSION - Use static classes instead of dynamic ones
             const currencyBadges = currencyFields
                 .filter(currency => item[currency] > 0)
                 .map(currency => {
                     const currencyCode = currency.toUpperCase();
-                    const colorClass = currencyCode === 'EUR' ? 'orange' : 
-                                     currencyCode === 'USD' ? 'pink' : 
-                                     currencyCode === 'GBP' ? 'blue' : 
-                                     currencyCode === 'CZK' ? 'purple' : 'green';
-                    return `<span class="px-2 py-1 bg-${colorClass}-100 text-${colorClass}-700 rounded text-xs font-semibold">${currencyCode}</span>`;
+                    let badgeClass;
+                    switch(currencyCode) {
+                        case 'EUR': badgeClass = 'bg-orange-100 text-orange-700'; break;
+                        case 'USD': badgeClass = 'bg-pink-100 text-pink-700'; break;
+                        case 'GBP': badgeClass = 'bg-blue-100 text-blue-700'; break;
+                        case 'CZK': badgeClass = 'bg-purple-100 text-purple-700'; break;
+                        default: badgeClass = 'bg-green-100 text-green-700';
+                    }
+                    return `<span class="px-2 py-1 ${badgeClass} rounded text-xs font-semibold">${currencyCode}</span>`;
                 }).join(' ');
 
             return `
