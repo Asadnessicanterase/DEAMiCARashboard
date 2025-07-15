@@ -490,91 +490,66 @@ return currencies;
 }
 
 function generateKPICards() {
-const container = document.getElementById('kpiContainer');
-const currencies = calculateCurrencyTotals();
+    const container = document.getElementById('kpiContainer');
+    const currencies = calculateCurrencyTotals();
 
-// Base KPI cards
-const baseKPIs = [
-{
-title: 'Total Issuers',
-value: data.length,
-subtitle: 'Active EMT Providers',
-icon: '🏢',
-color: 'kpi-teal'
-},
-{
-title: 'Total Tokens',
-value: data.reduce((sum, item) => sum + item.count, 0),
-subtitle: 'Authorized EMTs',
-icon: '🪙',
-color: 'kpi-blue'
-}
-];
+    // Base KPI cards
+    const baseKPIs = [
+        {
+            title: 'Total Issuers',
+            value: data.length,
+            subtitle: 'Active EMT Providers',
+            icon: '🏢',
+            color: 'kpi-teal'
+        },
+        {
+            title: 'Total Tokens',
+            value: data.reduce((sum, item) => sum + item.count, 0),
+            subtitle: 'Authorized EMTs',
+            icon: '🪙',
+            color: 'kpi-blue'
+        }
+    ];
 
-// Currency KPI cards
-const currencyKPIs = Object.entries(currencies).map(([currency, count], index) => {
-const info = currencyInfo[currency] || { symbol: '💶', name: currency, color: 'teal' };
-return {
-title: `${currency} Tokens`,
-value: count,
-subtitle: `${info.name}-backed`,
-icon: info.symbol,
-color: kpiColors[(index + 2) % kpiColors.length]
-};
-});
+    // Currency KPI cards
+    const currencyKPIs = Object.entries(currencies).map(([currency, count], index) => {
+        const info = currencyInfo[currency] || { symbol: '💶', name: currency, color: 'teal' };
+        return {
+            title: `${currency} Tokens`,
+            value: count,
+            subtitle: `${info.name}-backed`,
+            icon: info.symbol,
+            color: kpiColors[(index + 2) % kpiColors.length]
+        };
+    });
 
-// Non-compliant KPI
-const nonCompliantKPI = {
-title: 'Non-Compliant',
-value: nonCompliantData.length,
-subtitle: 'Flagged Entities',
-icon: '⚠️',
-color: 'kpi-red'
-};
+    // Non-compliant KPI
+    const nonCompliantKPI = {
+        title: 'Non-Compliant',
+        value: nonCompliantData.length,
+        subtitle: 'Flagged Entities',
+        icon: '⚠️',
+        color: 'kpi-red'
+    };
 
-const allKPIs = [...baseKPIs, ...currencyKPIs, nonCompliantKPI];
+    const allKPIs = [...baseKPIs, ...currencyKPIs, nonCompliantKPI];
 
-        // Adjust grid columns based on number of KPIs
-        const gridCols = Math.min(allKPIs.length, 6);
-        container.className = `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${gridCols} gap-6 mb-8 fade-in`;
-        // Use fixed grid classes based on number of KPIs - FIXED VERSION
-        const gridClass = allKPIs.length <= 3 ? 'lg:grid-cols-3' : 
-                         allKPIs.length <= 4 ? 'lg:grid-cols-4' : 
-                         allKPIs.length <= 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-6';
-        container.className = `grid grid-cols-1 md:grid-cols-2 ${gridClass} gap-6 mb-8 fade-in`;
+    // Adjust grid columns based on number of KPIs
+    const gridCols = Math.min(allKPIs.length, 6);
+    container.className = `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${gridCols} gap-6 mb-8 fade-in`;
 
-container.innerHTML = allKPIs.map(kpi => `
-           <div class="kpi-card ${kpi.color} p-6 rounded-2xl shadow-lg text-white card-hover">
-               <div class="flex items-center justify-between">  
-  
-    <p class="text-sm opacity-90 font-medium whitespace-nowrap">${kpi.title}</p>  
-    <p class="text-3xl font-bold mt-2">${kpi.value}</p>  
-    <p class="text-sm opacity-80 mt-1">${kpi.subtitle}</p>  
-  </div>  
-  <div class="text-4xl opacity-80">${kpi.icon}</div>  
-</div>
-           </div>
-       `).join('');
-}
-
-function generateCurrencyDistribution() {
-const container = document.getElementById('currencyDistribution');
-const currencies = calculateCurrencyTotals();
-const totalTokens = Object.values(currencies).reduce((sum, count) => sum + count, 0);
-
-container.innerHTML = Object.entries(currencies).map(([currency, count]) => {
-const info = currencyInfo[currency] || { symbol: '💶', name: currency };
-const percentage = ((count / totalTokens) * 100).toFixed(1);
-
-return `
-               <div class="text-center p-6 bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl currency-card">
-                   <div class="text-4xl mb-3">${info.symbol}</div>
-                   <div class="text-2xl font-bold text-teal-600">${count}</div>
-                   <div class="text-gray-600">${currency} Tokens</div>
-                   <div class="text-sm text-gray-500 mt-2">${percentage}% of total</div>
-               </div>
-           `;
-}).join('');
+    container.innerHTML = allKPIs.map(kpi => `
+        <div class="kpi-card ${kpi.color} p-6 rounded-2xl shadow-lg text-white card-hover">
+            <div class="flex items-center justify-between">
+                <div class="flex-shrink-0">
+                    <p class="text-xs opacity-90 font-medium whitespace-nowrap">${kpi.title}</p>
+                    <p class="text-3xl font-bold mt-2">${kpi.value}</p>
+                    <p class="text-sm opacity-80 mt-1">${kpi.subtitle}</p>
+                </div>
+                <div class="text-4xl opacity-80">${kpi.icon}</div>
+            </div>
+        </div>
+    `).join('');
 }
 
 // Calculate aggregated data
@@ -614,7 +589,7 @@ const container = document.getElementById('countryChart');
 const maxCount = countryData[0][1]; // First item has highest count due to sorting
 
 container.innerHTML = countryData.map(([country, count]) => `
-           <div class="flex items-center justify-between">
+           <">
                <div class="flex items-center space-x-2">
                    <span class="text-xl">${countryFlags[country] || '🏳️'}</span>
                    <span class="text-gray-700 font-medium">${country}</span>
