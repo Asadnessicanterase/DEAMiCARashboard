@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* All your custom styles go below */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body {
+font-family: 'Inter', sans-serif;
+background: linear-gradient(90deg, #58c1ba, #004aad);
+min-height: 100vh;
+}
+
+.main-bg {
+background: linear-gradient(90deg, #58c1ba, #004aad);
+}
+
+.header-sticky {
+position: sticky;
+top: 0;
+z-index: 50;
+backdrop-filter: blur(10px);
+background: linear-gradient(90deg, rgba(88, 193, 186, 0.95), rgba(0, 74, 173, 0.95));
+}
+
+.card-hover {
+transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.progress-bar {
+transition: width 0.8s ease-in-out;
+}
+
+.fade-in {
+animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.kpi-card {
+background: linear-gradient(135deg, var(--start-color), var(--end-color));
+}
+
+/* Complementary colors to the teal-blue gradient */
+.kpi-teal { --start-color: #14b8a6; --end-color: #0f766e; }
+.kpi-blue { --start-color: #0ea5e9; --end-color: #0369a1; }
+.kpi-orange { --start-color: #f97316; --end-color: #ea580c; }
+.kpi-coral { --start-color: #f43f5e; --end-color: #e11d48; }
+.kpi-purple { --start-color: #8b5cf6; --end-color: #7c3aed; }
+.kpi-red { --start-color: #dc2626; --end-color: #b91c1c; }
+.kpi-green { --start-color: #10b981; --end-color: #059669; }
+.kpi-yellow { --start-color: #f59e0b; --end-color: #d97706; }
+
+.search-input {
+background: rgba(255, 255, 255, 0.9);
+backdrop-filter: blur(10px);
+}
+
+.content-bg {
+background: rgba(255, 255, 255, 0.05);
+backdrop-filter: blur(10px);
+}
+
+.logo-container {
+max-height: 80px;
+width: auto;
+margin-right: 20px;
+}
+
+.tab-button {
+transition: all 0.3s ease;
+}
+
+.tab-active {
+background: white;
+color: #1e40af;
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.tab-inactive {
+background: rgba(59, 130, 246, 0.3);
+color: white;
+}
+
+.tab-inactive:hover {
+background: rgba(59, 130, 246, 0.5);
+}
+
+/* Dynamic currency cards */
+.currency-card {
+transition: all 0.3s ease;
+}
+
+.currency-card:hover {
+transform: scale(1.05);
+}
+
+/* hide the "xx.x% of total" under each card */
+#eurPercentage,
+#usdPercentage,
+#gbpPercentage,
+#czkPercentage {
+display: none;
+}
+
+/* hide the entire "Currency Distribution Analysis" card */
+.card-hover:has(.fa-coins) {
+display: none !important;
+}
